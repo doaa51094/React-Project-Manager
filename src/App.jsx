@@ -78,10 +78,10 @@ function App() {
   }
   function handleAddTask(text) {
     setProjectState((prev) => {
-      const TaskId=Math.random();
+      const TaskId = Math.random();
       const newTask = {
-        text:text,
-        projectId:prev.selectedProjectId,
+        text: text,
+        projectId: prev.selectedProjectId,
         id: TaskId,
       };
       return {
@@ -90,13 +90,23 @@ function App() {
       };
     });
   }
-  function handleDeleteTask() {}
+  function handleDeleteTask(id) {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter(
+          (task) => task.id !== id
+        ),
+      };
+    });
+  }
   return (
     <main className="my-8 h-screen flex gap-8">
       <ProjectsSidebar
         onSelectProject={handleSelectProject}
         projects={ProjectState.projects}
         onStartAddProject={handleStartAddProject}
+        selectedProjectId={ProjectState.selectedProjectId}
       />
       {content}
     </main>
